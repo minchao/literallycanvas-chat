@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    font-size: 13px;
+    line-height: 20px;
+}
+
+#main {
+    width: 100%;
+}
+.literally {
+    background-color: #fff;
+    height: 100vh;
+}
