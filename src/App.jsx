@@ -5,7 +5,8 @@ export default class App extends Component {
     render() {
         return (
             <LC.LiterallyCanvasReactComponent
-                imageSize={this.props.imageSize}
+                backgroundColor="#fff"
+                imageSize={{width: 1920, height: 1080}}
                 imageURLPrefix="/static/lc-assets/img"
             />
         )

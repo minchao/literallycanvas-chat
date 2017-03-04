@@ -7,7 +7,7 @@ import App from './App'
 const render = Component => {
     ReactDOM.render(
         <AppContainer>
-            <Component imageSize={{width: 1920, height: 1080}} />
+            <Component />
         </AppContainer>,
         document.getElementById('main')
     )
