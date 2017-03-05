@@ -1,7 +1,9 @@
 var http = require('http');
 var express = require('express');
-
 var app = express();
+var server = http.createServer(app);
+var io = require('socket.io')(server);
+var port = process.env.PORT || 3000;
 
 (function() {
     if (process.env.NODE_ENV != 'development') {
@@ -32,9 +34,19 @@ app.get("/", function(req, res) {
 
 app.use('/static', express.static('public'));
 
-if (require.main === module) {
-    var server = http.createServer(app);
-    server.listen(process.env.PORT || 3000, function() {
-        console.log("Listening on %j", server.address());
+// PaintChat room
+
+io.on('connection', function (socket) {
+    socket.on('shape', function (shape) {
+        socket.broadcast.emit('shape', shape);
     });
-}
+
+    socket.on('disconnect', function () {
+        socket.broadcast.emit('user_left', {});
+    });
+});
+
+
+server.listen(port, function() {
+    console.log("Listening on %j", server.address());
+});

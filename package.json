@@ -24,7 +24,8 @@
     "express": "^4.15.0",
     "literallycanvas": "^0.4.14",
     "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "socket.io": "^1.7.3"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack",
