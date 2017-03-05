@@ -16,17 +16,19 @@
     "eslint-plugin-react": "^6.10.0",
     "react-hot-loader": "3.0.0-beta.6",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-hot-middleware": "^2.17.1"
   },
   "dependencies": {
+    "express": "^4.15.0",
     "literallycanvas": "^0.4.14",
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack",
-    "watch": "NODE_ENV=production webpack --watch",
-    "dev": "node server.js",
+    "dev": "NODE_ENV=development node app.js",
     "lint": "eslint src"
   }
 }

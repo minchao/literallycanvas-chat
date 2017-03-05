@@ -1,11 +1,9 @@
 var path = require('path')
 var webpack = require('webpack')
 
-const NPM_TARGET = process.env.npm_lifecycle_event
-
 var DEV = false
 
-if (NPM_TARGET === 'dev') {
+if (process.env.NODE_ENV === 'development') {
     DEV = true
 }
 
@@ -19,7 +17,9 @@ var config = {
         filename: 'bundle.js',
         publicPath: '/static/'
     },
-    plugins: [],
+    plugins: [
+        new webpack.NamedModulesPlugin()
+    ],
     resolve: {
         extensions: ['.js', '.jsx']
     },
@@ -36,7 +36,7 @@ var config = {
 if (DEV) {
     config.entry = [
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:3000',
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
       'webpack/hot/only-dev-server',
       './src/index'
     ]
