@@ -1,6 +1,6 @@
 {
+  "extends": ["standard", "standard-jsx"],
   "ecmaFeatures": {
-    "jsx": true,
     "modules": true
   },
   "env": {
@@ -9,20 +9,8 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "quotes": [
-      2,
-      "single"
-    ],
-    "strict": [
-      2,
-      "never"
-    ],
-    "react/jsx-uses-react": 2,
-    "react/jsx-uses-vars": 2,
-    "react/jsx-no-undef": 2,
-    "react/react-in-jsx-scope": 2
-  },
-  "plugins": [
-    "react"
-  ]
+    "strict": [2, "never"],
+    "react/react-in-jsx-scope": 2,
+    "jsx-quotes": [2, "prefer-double"]
+  }
 }

@@ -13,8 +13,13 @@
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-1": "^6.22.0",
     "eslint": "^3.17.0",
+    "eslint-config-standard": "^7.0.0",
+    "eslint-config-standard-jsx": "^3.3.0",
+    "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-standard": "^2.1.1",
     "react-hot-loader": "3.0.0-beta.6",
+    "standard": "^9.0.0",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-dev-server": "^2.4.1",
@@ -31,6 +36,6 @@
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development node app.js",
-    "lint": "eslint src"
+    "lint": "eslint app.js src/*"
   }
 }
