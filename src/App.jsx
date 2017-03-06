@@ -4,6 +4,8 @@ import LC from 'literallycanvas'
 import LiterallyCanvas from 'literallycanvas/lib/js/core/LiterallyCanvas'
 import defaultOptions from 'literallycanvas/lib/js/core/defaultOptions'
 
+import Chat from './Chat'
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -35,6 +37,7 @@ export default class App extends Component {
         <LC.LiterallyCanvasReactComponent
           lc={this.lc}
         />
+        <Chat socket={this.socket} />
       </div>
     )
   }

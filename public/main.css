@@ -7,6 +7,28 @@ body {
 #main {
     width: 100%;
 }
+
 .literally {
-    height: 100vh;
+    height: calc(100vh - 200px);
+}
+
+#chat {
+    border-top: 1px solid #555;
+    background-color: #e6e6e6;
+    height: 200px;
+}
+
+#messages {
+    margin: 10px;
+    height: 130px;
+    overflow-y: auto;
+}
+
+#chat-input textarea {
+    padding: 5px;
+    width: 100%;
+    height: 30px;
+}
+#chat-input textarea:focus {
+    outline: none;
 }

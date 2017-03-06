@@ -43,6 +43,11 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('shape', shape)
   })
 
+  socket.on('chat', function (message) {
+    message.user = socket.id
+    socket.broadcast.emit('chat', message)
+  })
+
   socket.on('disconnect', function () {
     socket.broadcast.emit('user_left', {})
   })
