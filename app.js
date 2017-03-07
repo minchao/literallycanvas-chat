@@ -76,6 +76,9 @@ io.on('connection', function (socket) {
       case '!save':
         saveShapesToFile()
         break
+      case '!load':
+        loadShapesFromFile()
+        break
       default:
         message.user = socket.id
         socket.broadcast.emit('chat', message)
