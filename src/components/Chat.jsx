@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import uuid from 'uuid'
 
+import Messages from './Messages'
+
 export default class Chat extends Component {
   constructor (props, context) {
     super(props, context)
@@ -10,21 +12,12 @@ export default class Chat extends Component {
       messages: [],
       text: ''
     }
-    this.count = 0
   }
 
   componentDidMount () {
     this.socket.on('chat', (message) => {
       this.setState({messages: this.state.messages.concat([message])})
     })
-  }
-
-  componentDidUpdate () {
-    const count = this.state.messages.length
-    if (count > this.count) {
-      this.refs[this.state.messages.length - 1].scrollIntoView()
-    }
-    this.count = count
   }
 
   handleChange = (event) => {
@@ -62,19 +55,9 @@ export default class Chat extends Component {
   }
 
   render () {
-    const toBr = (item, key) => (<span key={key}>{item}<br /></span>)
-
     return (
       <div id="chat">
-        <div id="messages">
-          {this.state.messages.map((message, i) => (
-            <div
-              key={message.id}
-              ref={i}
-              style={{color: (message.user === 'me' ? 'blue' : null)}}
-            >{message.user}: {message.text.split('\n').map(toBr)}</div>
-          ))}
-        </div>
+        <Messages messages={this.state.messages} />
         <div id="chat-input">
           <textarea
             autoFocus="true"

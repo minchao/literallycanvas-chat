@@ -4,7 +4,7 @@ import LC from 'literallycanvas'
 import LiterallyCanvas from 'literallycanvas/lib/js/core/LiterallyCanvas'
 import defaultOptions from 'literallycanvas/lib/js/core/defaultOptions'
 
-import Chat from './Chat'
+import Chat from './components/Chat'
 
 export default class App extends Component {
   constructor (props) {
