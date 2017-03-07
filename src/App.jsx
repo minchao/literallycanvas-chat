@@ -13,6 +13,7 @@ export default class App extends Component {
     defaultOptions.backgroundColor = '#fff'
     defaultOptions.imageSize = {width: 1920, height: 1080}
     defaultOptions.imageURLPrefix = '/static/lc-assets/img'
+    defaultOptions.onInit = this.onLCInit
 
     this.lc = new LiterallyCanvas(defaultOptions)
     this.socket = IO()
@@ -29,6 +30,10 @@ export default class App extends Component {
     this.socket.on('user_left', () => {
       console.log('user_left')
     })
+  }
+
+  onLCInit = () => {
+    this.socket.emit('init')
   }
 
   render () {

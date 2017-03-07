@@ -38,8 +38,18 @@ app.use('/static', express.static('public'))
 
 // PaintChat room
 
+let shapes = []
+
 io.on('connection', function (socket) {
+  socket.on('init', function () {
+    // sync shapes history
+    shapes.map((shape) => {
+      socket.emit('shape', shape)
+    })
+  })
+
   socket.on('shape', function (shape) {
+    shapes.push(shape)
     socket.broadcast.emit('shape', shape)
   })
 
