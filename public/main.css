@@ -64,6 +64,7 @@ body {
 .messages-content {
     margin: 10px 200px 10px 10px;
     height: 130px;
+    word-wrap: break-word;
     overflow-y: auto;
 }
 
@@ -74,6 +75,7 @@ body {
     padding: 10px;
     width: 179px;
     height: 130px;
+    word-wrap: break-word;
     overflow-y: auto;
 }
 
