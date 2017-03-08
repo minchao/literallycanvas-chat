@@ -42,6 +42,7 @@ app.use('/static', express.static('public'))
 
 // PaintChat room
 
+let users = []
 let shapes = []
 
 function saveShapesToFile () {
@@ -63,6 +64,10 @@ loadShapesFromFile()
 io.on('connection', function (socket) {
   // client init
   socket.on('init', function (data) {
+    users.push({
+      id: socket.id,
+      name: data.user
+    })
     io.emit('chat', {
       id: uuid.v4(),
       user: appName,
@@ -93,8 +98,19 @@ io.on('connection', function (socket) {
     }
   })
 
-  socket.on('disconnect', function (data) {
-    console.log('disconnect', data)
+  socket.on('disconnect', function () {
+    let i = users.findIndex((user) => {
+      return user.id === socket.id
+    })
+    if (i >= 0) {
+      let user = users[i]
+      users.splice(i, 1)
+      socket.broadcast.emit('chat', {
+        id: uuid.v4(),
+        user: appName,
+        text: user.name + ' left the room'
+      })
+    }
   })
 })
 
