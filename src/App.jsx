@@ -4,6 +4,7 @@ import LC from 'literallycanvas'
 import LiterallyCanvas from 'literallycanvas/lib/js/core/LiterallyCanvas'
 import defaultOptions from 'literallycanvas/lib/js/core/defaultOptions'
 
+import Login from './components/Login'
 import Chat from './components/Chat'
 
 export default class App extends Component {
@@ -13,36 +14,65 @@ export default class App extends Component {
     defaultOptions.backgroundColor = '#fff'
     defaultOptions.imageSize = {width: 1920, height: 1080}
     defaultOptions.imageURLPrefix = '/static/lc-assets/img'
-    defaultOptions.onInit = this.onLCInit
 
+    this.socket = null
     this.lc = new LiterallyCanvas(defaultOptions)
-    this.socket = IO()
-  }
-
-  componentDidMount () {
     this.lc.on('shapeSave', (shape) => {
       this.socket.emit('shape', LC.shapeToJSON(shape.shape))
     })
 
+    this.state = {
+      user: null,
+      messages: []
+    }
+  }
+
+  init = () => {
+    this.socket = IO()
+
     this.socket.on('shape', (shape) => {
       this.lc.saveShape(LC.JSONToShape(shape), false)
+    })
+    this.socket.on('chat', (message) => {
+      this.setState({
+        messages: this.state.messages.concat([message])
+      })
     })
     this.socket.on('user_left', () => {
       console.log('user_left')
     })
+
+    this.socket.emit('init', {user: this.state.user})
   }
 
-  onLCInit = () => {
-    this.socket.emit('init')
+  handleSetUser = (name) => {
+    this.setState({user: name}, () => {
+      this.init()
+    })
+  }
+
+  handleChat = (message) => {
+    this.setState({
+      messages: this.state.messages.concat([message])
+    })
+    this.socket.emit('chat', message)
   }
 
   render () {
     return (
       <div id="box">
+        <Login
+          user={this.state.user}
+          onSetUser={this.handleSetUser}
+        />
         <LC.LiterallyCanvasReactComponent
           lc={this.lc}
         />
-        <Chat socket={this.socket} />
+        <Chat
+          user={this.state.user}
+          messages={this.state.messages}
+          handleChat={this.handleChat}
+        />
       </div>
     )
   }

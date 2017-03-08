@@ -6,18 +6,10 @@ import Messages from './Messages'
 export default class Chat extends Component {
   constructor (props, context) {
     super(props, context)
-    this.socket = this.props.socket
     this.state = {
       typing: false,
-      messages: [],
       text: ''
     }
-  }
-
-  componentDidMount () {
-    this.socket.on('chat', (message) => {
-      this.setState({messages: this.state.messages.concat([message])})
-    })
   }
 
   handleChange = (event) => {
@@ -39,28 +31,29 @@ export default class Chat extends Component {
         return
       }
 
-      const message = {
-        id: uuid.v4(),
-        user: 'me',
-        text: text
-      }
-
-      this.socket.emit('chat', message)
       this.setState({
         typing: false,
-        messages: this.state.messages.concat([message]),
         text: ''
       })
+
+      const message = {
+        id: uuid.v4(),
+        user: this.props.user,
+        text: text
+      }
+      this.props.handleChat(message)
     }
   }
 
   render () {
     return (
       <div id="chat">
-        <Messages messages={this.state.messages} />
+        <Messages
+          messages={this.props.messages}
+          user={this.props.user}
+        />
         <div id="chat-input">
           <textarea
-            autoFocus="true"
             placeholder="Type here to chat"
             value={this.state.text}
             onChange={this.handleChange}

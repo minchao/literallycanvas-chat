@@ -23,7 +23,7 @@ export default class Messages extends Component {
           <div
             key={message.id}
             ref={i}
-            style={{color: (message.user === 'me' ? 'blue' : null)}}
+            style={{color: (message.user === this.props.user ? 'blue' : null)}}
           >{message.user}: {message.text.split('\n').map(toBr)}</div>
         ))}
       </div>

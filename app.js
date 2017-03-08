@@ -6,6 +6,8 @@ const app = express()
 const server = http.createServer(app)
 const io = require('socket.io')(server)
 const port = process.env.PORT || 3000
+const uuid = require('uuid')
+const appName = 'PaintChat'
 const tempFile = 'temp.json';
 
 (function () {
@@ -59,7 +61,14 @@ function loadShapesFromFile () {
 loadShapesFromFile()
 
 io.on('connection', function (socket) {
-  socket.on('init', function () {
+  // client init
+  socket.on('init', function (data) {
+    io.emit('chat', {
+      id: uuid.v4(),
+      user: appName,
+      text: data.user + ' enters the chat room'
+    })
+
     // sync shapes history
     shapes.map((shape) => {
       socket.emit('shape', shape)
@@ -80,13 +89,12 @@ io.on('connection', function (socket) {
         loadShapesFromFile()
         break
       default:
-        message.user = socket.id
         socket.broadcast.emit('chat', message)
     }
   })
 
-  socket.on('disconnect', function () {
-    socket.broadcast.emit('user_left', {})
+  socket.on('disconnect', function (data) {
+    console.log('disconnect', data)
   })
 })
 
