@@ -31,13 +31,15 @@ export default class Messages extends Component {
 
     return (
       <div id="messages">
-        {this.props.messages.map((message, i) => (
-          <div
-            key={message.id}
-            ref={i}
-            style={style(message)}
-          >{message.user}: {message.text.split('\n').map(toBr)}</div>
-        ))}
+        <div className="messages-content">
+          {this.props.messages.map((message, i) => (
+            <div
+              key={message.id}
+              ref={i}
+              style={style(message)}
+            >{message.user}: {message.text.split('\n').map(toBr)}</div>
+          ))}
+        </div>
       </div>
     )
   }

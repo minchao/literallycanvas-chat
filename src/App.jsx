@@ -23,6 +23,7 @@ export default class App extends Component {
 
     this.state = {
       user: null,
+      users: [],
       messages: []
     }
   }
@@ -30,6 +31,11 @@ export default class App extends Component {
   init = () => {
     this.socket = IO()
 
+    this.socket.on('online', (users) => {
+      this.setState({
+        users: users
+      })
+    })
     this.socket.on('shape', (shape) => {
       this.lc.saveShape(LC.JSONToShape(shape), false)
     })
@@ -37,9 +43,6 @@ export default class App extends Component {
       this.setState({
         messages: this.state.messages.concat([message])
       })
-    })
-    this.socket.on('user_left', () => {
-      console.log('user_left')
     })
 
     this.socket.emit('init', {user: this.state.user})
@@ -70,6 +73,7 @@ export default class App extends Component {
         />
         <Chat
           user={this.state.user}
+          users={this.state.users}
           messages={this.state.messages}
           handleChat={this.handleChat}
         />

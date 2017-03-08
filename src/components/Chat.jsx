@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import uuid from 'uuid'
 
 import Messages from './Messages'
+import OnlineUsers from './OnlineUsers'
 
 export default class Chat extends Component {
   constructor (props, context) {
@@ -51,6 +52,9 @@ export default class Chat extends Component {
         <Messages
           messages={this.props.messages}
           user={this.props.user}
+        />
+        <OnlineUsers
+          users={this.props.users}
         />
         <div id="chat-input">
           <textarea

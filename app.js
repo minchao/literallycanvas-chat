@@ -73,6 +73,7 @@ io.on('connection', function (socket) {
       user: appName,
       text: data.user + ' join the room'
     })
+    io.emit('online', users)
 
     // sync shapes history
     shapes.map((shape) => {
@@ -95,6 +96,7 @@ io.on('connection', function (socket) {
         break
       default:
         socket.broadcast.emit('chat', message)
+        socket.broadcast.emit('online', users)
     }
   })
 
@@ -110,6 +112,7 @@ io.on('connection', function (socket) {
         user: appName,
         text: user.name + ' left the room'
       })
+      socket.broadcast.emit('online', users)
     }
   })
 })
