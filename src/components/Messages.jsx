@@ -16,6 +16,18 @@ export default class Messages extends Component {
 
   render () {
     const toBr = (item, key) => (<span key={key}>{item}<br /></span>)
+    const style = (message) => {
+      let s = null
+      switch (message.user) {
+        case this.props.user:
+          s = {color: 'blue'}
+          break
+        case 'PaintChat':
+          s = {color: 'gray'}
+          break
+      }
+      return s
+    }
 
     return (
       <div id="messages">
@@ -23,7 +35,7 @@ export default class Messages extends Component {
           <div
             key={message.id}
             ref={i}
-            style={{color: (message.user === this.props.user ? 'blue' : null)}}
+            style={style(message)}
           >{message.user}: {message.text.split('\n').map(toBr)}</div>
         ))}
       </div>
