@@ -71,7 +71,7 @@ io.on('connection', function (socket) {
     io.emit('chat', {
       id: uuid.v4(),
       user: appName,
-      text: data.user + ' enters the chat room'
+      text: data.user + ' join the room'
     })
 
     // sync shapes history
